@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Player.h"
+#include "Boss.h"
 
 /*
 Class: Game
@@ -18,6 +19,7 @@ class Game
     private:
     bool isGameOver;
     Player *player;
+    Boss *boss;
 
 };
 

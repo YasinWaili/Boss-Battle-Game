@@ -3,12 +3,14 @@
 Game::Game() : isGameOver(false) 
 { 
     player = new Player(10, 2.0f);
+    boss = new Boss(10);
 }
 
 void Game::run(){
     sf::RenderWindow window(sf::VideoMode({1280, 720}), "Boss Battle");
 
-    player->setPosition(100.0f, 100.0f); 
+    player->setPosition(100.0f, 360.0f); 
+    boss->setPosition(900.0f, 330.0f);
 
     while (window.isOpen()) {
         sf::Event event;
@@ -33,6 +35,7 @@ void Game::run(){
     
         window.clear();
         player->draw(window); // Draw the player
+        boss->draw(window);
         window.display();
     }
 

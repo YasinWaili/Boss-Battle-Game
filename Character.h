@@ -1,6 +1,8 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
+#include <SFML/Graphics.hpp>
+
 class Character
 {
     public:
@@ -11,6 +13,8 @@ class Character
 
     private:
     int health;
+    float x;
+    float y;
 };
 
 #endif
