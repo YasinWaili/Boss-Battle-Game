@@ -16,6 +16,7 @@ public:
     void move(float offsetX, float offsetY);
     void draw(sf::RenderWindow& window);
     int getMovementSpeed();
+    void setCoordinates(float, float);
 
 private:
     float movementSpeed;

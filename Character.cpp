@@ -10,3 +10,19 @@ void Character::takeDamage(int damage){
 }
 
 int Character::getHealth() { return health; }
+
+float Character::getX(){
+ return x;
+}
+
+float Character::getY(){
+ return y;
+}
+
+void Character::setX(float x){
+    this->x = x;
+}
+
+void Character::setY(float y){
+    this->y = y;
+}

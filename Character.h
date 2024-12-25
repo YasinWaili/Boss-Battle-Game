@@ -10,6 +10,10 @@ class Character
     void takeDamage(int);
     int getHealth();
 
+    float getX();
+    float getY();
+    void setX(float);
+    void setY(float);
 
     private:
     int health;
