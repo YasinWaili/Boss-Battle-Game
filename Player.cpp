@@ -3,8 +3,10 @@
 Player::Player(int h, float s) : Character(h), movementSpeed(s) {
     shape.setRadius(25.0f); // Set player size
     shape.setFillColor(sf::Color::Green); // Set player color
-}
 
+    healthBarPosition = sf::Vector2f(20.0f, 20.0f); // Set health bar position
+    healthBar = HealthBar(200.0f, 20.0f, sf::Color::Green, sf::Color::Red, healthBarPosition);
+}
 void Player::setPosition(float x, float y) {
     shape.setPosition(x, y);
     setX(x);
@@ -15,12 +17,10 @@ void Player::move(float offsetX, float offsetY) {
     float xMove = offsetX * movementSpeed;
     float yMove = offsetY * movementSpeed;
 
-    // Get the current position of the shape
     float currentX = shape.getPosition().x;
     float currentY = shape.getPosition().y;
     float radius = shape.getRadius();
 
-    // Calculate the new position
     float newX = currentX + xMove;
     float newY = currentY + yMove;
 
@@ -30,16 +30,15 @@ void Player::move(float offsetX, float offsetY) {
     if (newY - radius < 0) newY = radius; // Top boundary
     if (newY + radius > 720) newY = 720 - radius; // Bottom boundary
 
-    // Update the position directly
     shape.setPosition(newX, newY);
 
-    // Update logical coordinates
     setCoordinates(newX, newY);
 }
 
 
 
 void Player::draw(sf::RenderWindow& window) {
+    drawHealthBar(window);
     window.draw(shape);
 }
 

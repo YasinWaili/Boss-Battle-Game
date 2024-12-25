@@ -6,7 +6,7 @@
 class HealthBar
 {
     public:
-    HealthBar(float, float, sf::color, sf::color, sf::Vector2f);
+    HealthBar(float w, float h, sf::Color fillColor, sf::Color backgroundColor, sf::Vector2f position);
     void update(float, float);
     void draw(sf::RenderWindow&);
 
