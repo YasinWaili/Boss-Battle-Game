@@ -26,6 +26,9 @@ private:
     float movementSpeed;
     sf::CircleShape shape; 
     List<Projectile> projectiles;
+
+    float attackCooldown; 
+    sf::Clock attackTimer;
 };
 
 #endif

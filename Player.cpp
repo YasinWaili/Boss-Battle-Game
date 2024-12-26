@@ -1,7 +1,7 @@
 #include "Player.h"
 #include <vector> 
 
-Player::Player(int h, float s) : Character(h), movementSpeed(s) {
+Player::Player(int h, float s) : Character(h), movementSpeed(s), attackCooldown(0.5f) {
     shape.setRadius(25.0f); // Set player size
     shape.setFillColor(sf::Color::Green); // Set player color
 
@@ -37,9 +37,12 @@ void Player::move(float offsetX, float offsetY) {
 }
 
 void Player::shoot() {
-    float x = shape.getPosition().x + shape.getRadius() * 2;
-    float y = shape.getPosition().y + shape.getRadius() - 2.5f;
-    projectiles += Projectile(x, y, 5.0f);
+    if (attackTimer.getElapsedTime().asSeconds() >= attackCooldown) {
+        float x = shape.getPosition().x + shape.getRadius() * 2;
+        float y = shape.getPosition().y + shape.getRadius() - 2.5f;
+        projectiles += Projectile(x, y, 5.0f);
+        attackTimer.restart();
+    }
 }
 
 
