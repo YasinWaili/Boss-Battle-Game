@@ -1,4 +1,5 @@
 #include "Player.h"
+#include <vector> 
 
 Player::Player(int h, float s) : Character(h), movementSpeed(s) {
     shape.setRadius(25.0f); // Set player size
@@ -35,12 +36,40 @@ void Player::move(float offsetX, float offsetY) {
     setCoordinates(newX, newY);
 }
 
+void Player::shoot(){
+    float x = shape.getPosition().x + shape.getRadius() * 2;
+    float y = shape.getPosition().y + shape.getRadius() - 2.5f;
+    projectiles += Projectile(x, y, 5.0f);
+}
+
+
+void Player::updateProjectiles() {
+    List<Projectile> updatedProjectiles;
+
+    projectiles.traverse([&](Projectile& projectile) {
+        projectile.update();
+        if (!projectile.isOffScreen()) {
+            updatedProjectiles += projectile; // Keep projectiles that are on-screen
+        } 
+    });
+
+    // Replace the old list with the updated list
+    projectiles = updatedProjectiles;
+}
 
 
 void Player::draw(sf::RenderWindow& window) {
     drawHealthBar(window);
     window.draw(shape);
+
+    projectiles.traverse([&](Projectile& projectile) {
+        projectile.draw(window);
+    });
 }
+
+
+
+
 
 int Player::getMovementSpeed(){
     return movementSpeed;

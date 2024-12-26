@@ -2,7 +2,9 @@
 #define PLAYER_H
 
 #include "Character.h"
+#include "Projectile.h"
 #include <SFML/Graphics.hpp>
+#include "List.h"
 
 /*
 Class: Player
@@ -14,13 +16,16 @@ public:
     Player(int h, float s);
     void setPosition(float x, float y);
     void move(float offsetX, float offsetY);
+    void shoot();
+    void updateProjectiles();
     void draw(sf::RenderWindow& window);
     int getMovementSpeed();
     void setCoordinates(float, float);
 
 private:
     float movementSpeed;
-    sf::CircleShape shape; // Visual representation of the player
+    sf::CircleShape shape; 
+    List<Projectile> projectiles;
 };
 
 #endif

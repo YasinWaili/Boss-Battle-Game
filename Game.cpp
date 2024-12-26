@@ -32,11 +32,17 @@ void Game::run(){
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
             player->move(player->getMovementSpeed(), 0); // Move right
         }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+            player->shoot();
+        }
+        
     
         window.clear();
         player->draw(window); // Draw the player
         boss->draw(window);
         window.display();
+        player->updateProjectiles();
     }
 
 }

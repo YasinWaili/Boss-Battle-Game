@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "Player.h"
 #include "Boss.h"
+#include <iostream>
 
 /*
 Class: Game
