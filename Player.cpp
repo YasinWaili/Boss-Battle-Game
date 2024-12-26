@@ -36,7 +36,7 @@ void Player::move(float offsetX, float offsetY) {
     setCoordinates(newX, newY);
 }
 
-void Player::shoot(){
+void Player::shoot() {
     float x = shape.getPosition().x + shape.getRadius() * 2;
     float y = shape.getPosition().y + shape.getRadius() - 2.5f;
     projectiles += Projectile(x, y, 5.0f);
@@ -44,18 +44,16 @@ void Player::shoot(){
 
 
 void Player::updateProjectiles() {
-    List<Projectile> updatedProjectiles;
-
     projectiles.traverse([&](Projectile& projectile) {
-        projectile.update();
-        if (!projectile.isOffScreen()) {
-            updatedProjectiles += projectile; // Keep projectiles that are on-screen
-        } 
+        projectile.update(); // Move each projectile
     });
 
-    // Replace the old list with the updated list
-    projectiles = updatedProjectiles;
+    // Remove off-screen projectiles
+    projectiles.removeIf([](const Projectile& projectile) {
+        return projectile.isOffScreen();
+    });
 }
+
 
 
 void Player::draw(sf::RenderWindow& window) {
@@ -66,9 +64,6 @@ void Player::draw(sf::RenderWindow& window) {
         projectile.draw(window);
     });
 }
-
-
-
 
 
 int Player::getMovementSpeed(){

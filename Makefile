@@ -1,5 +1,5 @@
-dprog: main.o Game.o Character.o Player.o Boss.o
-	g++ -o prog main.o Game.o Character.o Player.o Boss.o -lsfml-graphics -lsfml-window -lsfml-system
+dprog: main.o Game.o Character.o Player.o Boss.o HealthBar.o Projectile.o
+	g++ -o prog main.o Game.o Character.o Player.o Boss.o HealthBar.o Projectile.o -lsfml-graphics -lsfml-window -lsfml-system
 
 main.o: main.cpp
 	g++ -c main.cpp
@@ -15,6 +15,15 @@ Boss.o: Boss.cpp Boss.h
 
 Character.o: Character.cpp Character.h
 	g++ -c Character.cpp
+
+HealthBar.o: HealthBar.cpp HealthBar.h
+	g++ -c HealthBar.cpp
+
+Projectile.o: Projectile.cpp Projectile.h
+	g++ -c Projectile.cpp
+
+# List.o: List.h
+# 	g++ -c List.cpp
 
 clean:
 	rm -f *.o prog
