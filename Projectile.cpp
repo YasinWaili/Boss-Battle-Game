@@ -23,3 +23,8 @@ void Projectile::draw(sf::RenderWindow& window) const { // Marked as const
 bool Projectile::isOffScreen() const {
     return shape.getPosition().x > 1280;
 }
+
+sf::FloatRect Projectile::getBounds() {
+    return shape.getGlobalBounds();
+}
+

@@ -7,6 +7,7 @@ void Character::takeDamage(int damage){
     if (health < 0){
         health = 0;
     }
+    updateHealthBar();
 }
 
 int Character::getHealth() { return health; }

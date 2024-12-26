@@ -6,10 +6,10 @@ Game::Game() : isGameOver(false)
     boss = new Boss(10);
 }
 
-void Game::run(){
+void Game::run() {
     sf::RenderWindow window(sf::VideoMode({1280, 720}), "Boss Battle");
 
-    player->setPosition(100.0f, 360.0f); 
+    player->setPosition(100.0f, 360.0f);
     boss->setPosition(900.0f, 330.0f);
 
     while (window.isOpen()) {
@@ -36,13 +36,16 @@ void Game::run(){
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
             player->shoot();
         }
-        
-    
+
+        player->updateProjectiles(*boss); // Pass the boss to check collisions
+
         window.clear();
         player->draw(window); // Draw the player
         boss->draw(window);
         window.display();
-        player->updateProjectiles();
-    }
 
+        if (boss->getHealth() == 0){
+            exit(0);
+        }
+    }
 }

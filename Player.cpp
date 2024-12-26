@@ -46,13 +46,17 @@ void Player::shoot() {
 }
 
 
-void Player::updateProjectiles() {
-    projectiles.traverse([&](Projectile& projectile) {
-        projectile.update(); // Move each projectile
-    });
+void Player::updateProjectiles(Boss& boss) {
+    projectiles.removeIf([&](Projectile& projectile) {
+        projectile.update(); // Move the projectile
 
-    // Remove off-screen projectiles
-    projectiles.removeIf([](const Projectile& projectile) {
+        // Check collision with boss
+        if (boss.getBounds().intersects(projectile.getBounds())) {
+            boss.takeDamage(1); 
+            return true;        
+        }
+
+        // Remove off-screen projectiles
         return projectile.isOffScreen();
     });
 }

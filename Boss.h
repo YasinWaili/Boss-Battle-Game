@@ -9,6 +9,7 @@ class Boss : public Character
     Boss(int);
     void draw(sf::RenderWindow& window);
     void setPosition(float x, float y);
+    sf::FloatRect getBounds();
 
     private:
     sf::RectangleShape shape;

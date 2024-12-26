@@ -10,6 +10,7 @@ public:
     void update();
     void draw(sf::RenderWindow& window) const; // Marked as const
     bool isOffScreen() const;
+    sf::FloatRect getBounds();
 
 private:
     sf::RectangleShape shape;

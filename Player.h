@@ -5,6 +5,7 @@
 #include "Projectile.h"
 #include <SFML/Graphics.hpp>
 #include "List.h"
+#include "Boss.h"
 
 /*
 Class: Player
@@ -17,7 +18,7 @@ public:
     void setPosition(float x, float y);
     void move(float offsetX, float offsetY);
     void shoot();
-    void updateProjectiles();
+    void updateProjectiles(Boss& boss);
     void draw(sf::RenderWindow& window);
     int getMovementSpeed();
     void setCoordinates(float, float);

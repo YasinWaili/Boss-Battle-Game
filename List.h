@@ -7,17 +7,16 @@ template<typename T>
 class List {
     class Node {
     public:
-        T data;      // Store object directly
+        T* data;
         Node* next;
-        Node(const T& data) : data(data), next(nullptr) {} // Constructor for Node
     };
 
 public:
     List();
     ~List();
-    List& operator+=(const T& data);
+    List& operator+=(T data);
     void traverse(std::function<void(T&)> func);
-    void removeIf(std::function<bool(const T&)> condition);
+    void removeIf(std::function<bool(T&)> predicate);
 
 private:
     Node* head;
@@ -31,14 +30,17 @@ List<T>::~List() {
     Node* currNode = head;
     while (currNode != nullptr) {
         Node* nextNode = currNode->next;
+        delete currNode->data;
         delete currNode;
         currNode = nextNode;
     }
 }
 
 template<typename T>
-List<T>& List<T>::operator+=(const T& data) {
-    Node* newNode = new Node(data);
+List<T>& List<T>::operator+=(T data) {
+    Node* newNode = new Node;
+    newNode->data = new T(data);
+    newNode->next = nullptr;
 
     if (!head) {
         head = newNode;
@@ -57,33 +59,35 @@ template<typename T>
 void List<T>::traverse(std::function<void(T&)> func) {
     Node* currNode = head;
     while (currNode != nullptr) {
-        func(currNode->data); // Pass the object itself
+        func(*(currNode->data)); // Call function on data
         currNode = currNode->next;
     }
 }
 
 template<typename T>
-void List<T>::removeIf(std::function<bool(const T&)> condition) {
+void List<T>::removeIf(std::function<bool(T&)> predicate) {
     Node* currNode = head;
     Node* prevNode = nullptr;
 
     while (currNode != nullptr) {
-        if (condition(currNode->data)) {
-            // Remove the node
+        if (predicate(*(currNode->data))) { // Check condition
             Node* toDelete = currNode;
-            if (prevNode) {
-                prevNode->next = currNode->next;
+
+            if (prevNode == nullptr) { // Node is at the head
+                head = currNode->next;
             } else {
-                head = currNode->next; // Update head if the first node is removed
+                prevNode->next = currNode->next;
             }
+
             currNode = currNode->next;
-            delete toDelete;
+
+            delete toDelete->data; // Delete the data
+            delete toDelete;       // Delete the node
         } else {
             prevNode = currNode;
             currNode = currNode->next;
         }
     }
 }
-
 
 #endif

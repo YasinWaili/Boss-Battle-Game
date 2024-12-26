@@ -16,3 +16,7 @@ void Boss::draw(sf::RenderWindow& window) {
     window.draw(shape);
     drawHealthBar(window);
 }
+
+sf::FloatRect Boss::getBounds() {
+    return shape.getGlobalBounds();
+}
