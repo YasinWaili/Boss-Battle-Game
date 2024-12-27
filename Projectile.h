@@ -3,6 +3,11 @@
 
 #include <SFML/Graphics.hpp>
 
+/*
+Class: Projectile
+Purpose: A Projectile class that represents player projectiles in the game.
+*/
+
 class Projectile {
 public:
     Projectile(); // Default constructor

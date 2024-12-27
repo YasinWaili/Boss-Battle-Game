@@ -1,7 +1,12 @@
 #ifndef LIST_H
 #define LIST_H
 
-#include <functional> // For std::function
+#include <functional> 
+
+/*
+Class: List
+Purpose: A List class that stores data in a linked list
+*/
 
 template<typename T>
 class List {

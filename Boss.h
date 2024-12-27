@@ -7,6 +7,11 @@
 
 class Player;
 
+/*
+Class: Boss
+Purpose: A boss class that represens the boss entity
+*/
+
 class Boss : public Character
 {
     public:

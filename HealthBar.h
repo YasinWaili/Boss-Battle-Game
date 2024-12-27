@@ -3,6 +3,11 @@
 
 #include <SFML/Graphics.hpp>
 
+/*
+Class: HealthBar
+Purpose: A HealthBar class that represents the health bar of characters in the game
+*/
+
 class HealthBar
 {
     public:

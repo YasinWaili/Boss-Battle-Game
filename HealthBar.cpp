@@ -11,10 +11,20 @@ HealthBar::HealthBar(float w, float h, sf::Color fillColor, sf::Color background
     barForeground.setPosition(position);
 }
 
+/*
+Function: update
+Purpose: updates the health bar values
+*/
+
 void HealthBar::update(float currentHealth, float maxHealth) {
     float healthPercentage = currentHealth / maxHealth;
     barForeground.setSize(sf::Vector2f(maxWidth * healthPercentage, barForeground.getSize().y));
 }
+
+/*
+Function: draw
+Purpose: draws the health bar
+*/
 
 void HealthBar::draw(sf::RenderWindow& window) {
     window.draw(barBackground);

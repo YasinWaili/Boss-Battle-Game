@@ -6,6 +6,11 @@ Game::Game() : isGameOver(false)
     boss = new Boss(10);
 }
 
+/*
+Function: run
+Purpose: controls the main gmae loop
+*/
+
 void Game::run() {
     sf::RenderWindow window(sf::VideoMode({1280, 720}), "Boss Battle");
 
@@ -38,32 +43,40 @@ void Game::run() {
             player->move(player->getMovementSpeed(), 0); // Move right
         }
 
+        // Player actions
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
             player->shoot();
         }
 
-        boss->move(deltaTime);
-        
         // Boss actions
+        boss->move(deltaTime);
         boss->shoot();
-        boss->updateProjectiles(deltaTime, *player);
 
         // Update projectiles
         player->updateProjectiles(*boss);
+        boss->updateProjectiles(deltaTime, *player);
 
         window.clear();
         player->draw(window);
         boss->draw(window);
         window.display();
 
+        // End game scenario
         if (boss->getHealth() == 0 || player->getHealth() == 0) {
             isGameOver = true;
         }
     }
+
+    // If the game is over then display the results
     if (isGameOver){
         displayResults(boss->getHealth(), player->getHealth());
     }
 }
+
+/*
+Function: displayResults
+Purpose: displays the result of the game
+*/
 
 void Game::displayResults(int b, int p){
     if (b == 0){

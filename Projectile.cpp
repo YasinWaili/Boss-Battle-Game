@@ -12,17 +12,37 @@ Projectile::Projectile(float x, float y, float speed) : speed(speed) {
     shape.setPosition(x, y);
 }
 
+/*
+Function: update
+Purpose: Updates the projectile
+*/
+
 void Projectile::update() {
     shape.move(speed, 0);
 }
 
-void Projectile::draw(sf::RenderWindow& window) const { // Marked as const
+/*
+Function: draw
+Purpose: Draws the projectile
+*/
+
+void Projectile::draw(sf::RenderWindow& window) const { 
     window.draw(shape);
 }
+
+/*
+Function: isOffScreen
+Purpose: Checks whether the projectile is off screen or not
+*/
 
 bool Projectile::isOffScreen() const {
     return shape.getPosition().x > 1280;
 }
+
+/*
+Function: getBounds
+Purpose: gets the bounds of the projectile
+*/
 
 sf::FloatRect Projectile::getBounds() {
     return shape.getGlobalBounds();

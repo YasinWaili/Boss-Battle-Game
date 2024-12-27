@@ -13,9 +13,19 @@ Boss::Boss(int h) : Character(h), attackCooldown(1.0f), targetY(360.0f), moveSpe
     size = 0;
 }
 
+/*
+Function: setPosition 
+Purpose: Sets the position of the boss
+*/
+
 void Boss::setPosition(float x, float y) {
     shape.setPosition(x, y);
 }
+
+/*
+Function: Draw
+Purpose: Draws the boss, healthbar and projectiles
+*/
 
 void Boss::draw(sf::RenderWindow& window) {
     window.draw(shape);
@@ -26,9 +36,19 @@ void Boss::draw(sf::RenderWindow& window) {
     });
 }
 
+/*
+Function: getBounds()
+Purpose: gets the bounds of the boss shape
+*/
+
 sf::FloatRect Boss::getBounds() {
     return shape.getGlobalBounds();
 }
+
+/*
+Function: shoot
+Purpose: Generates a projectile for the boss and randomly generates speeed values
+*/
 
 void Boss::shoot() {
     if (size > 10){
@@ -41,9 +61,8 @@ void Boss::shoot() {
         float centerX = position.x + shape.getSize().x / 2;
         float centerY = position.y + shape.getSize().y / 2;
 
-        // Increased speed range for faster initial movement
-        float speedX = -(rand() % 100 + 200); // Random negative X speed (-300 to -500)
-        float speedY = (rand() % 200 - 100);  // Random Y speed (-150 to +150)
+        float speedX = -(rand() % 100 + 200); 
+        float speedY = (rand() % 200 - 100);  
 
         projectiles += BossProjectile(centerX, centerY, speedX, speedY);
 
@@ -52,17 +71,23 @@ void Boss::shoot() {
     }
 }
 
+/*
+Function: updateProjectiles
+Purpose: Updates all the projectiles in the linkedList and checks if a 
+player was hit by the projectile. If they were hit then they take damage.
+Also checks if a projectile has been spawned longer than 20 seconds, and despawns
+if it is.
+*/
+
 void Boss::updateProjectiles(float deltaTime, Player& player) {
     projectiles.removeIf([&](BossProjectile& projectile) {
         projectile.update(deltaTime);
 
-        // Check if the projectile hits the player
         if (projectile.getBounds().intersects(player.getBounds())) {
-            player.takeDamage(1); // Modify the player's health directly
-            return true;          // Remove the projectile that hit the player
+            player.takeDamage(1); 
+            return true;         
         }
 
-        // Remove expired projectiles
         if (projectile.isExpired()) {
             size--;
             return true;
@@ -72,25 +97,25 @@ void Boss::updateProjectiles(float deltaTime, Player& player) {
     });
 }
 
-
+/*
+Function: move
+Purpose: Generates a randomly moving position for the boss on the Y axis
+*/
 
 void Boss::move(float deltaTime) {
     sf::Vector2f position = shape.getPosition();
 
-    // If the boss is close to the target, select a new random target
     if (std::abs(position.y - targetY) < 5.0f) {
-        targetY = static_cast<float>(rand() % (720 - static_cast<int>(shape.getSize().y))); // Random target Y within bounds
+        targetY = static_cast<float>(rand() % (720 - static_cast<int>(shape.getSize().y))); 
     }
 
-    // Move smoothly toward the target Y
     if (position.y < targetY) {
         position.y += moveSpeed * deltaTime;
-        if (position.y > targetY) position.y = targetY; // Clamp to target
+        if (position.y > targetY) position.y = targetY; 
     } else if (position.y > targetY) {
         position.y -= moveSpeed * deltaTime;
-        if (position.y < targetY) position.y = targetY; // Clamp to target
+        if (position.y < targetY) position.y = targetY; 
     }
 
-    // Set the new position
     shape.setPosition(position.x, position.y);
 }

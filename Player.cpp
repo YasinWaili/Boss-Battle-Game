@@ -2,17 +2,28 @@
 #include <vector> 
 
 Player::Player(int h, float s) : Character(h), movementSpeed(s), attackCooldown(0.5f) {
-    shape.setRadius(25.0f); // Set player size
-    shape.setFillColor(sf::Color::Green); // Set player color
+    shape.setRadius(25.0f); 
+    shape.setFillColor(sf::Color::Green); 
 
-    healthBarPosition = sf::Vector2f(20.0f, 20.0f); // Set health bar position
+    healthBarPosition = sf::Vector2f(20.0f, 20.0f); 
     healthBar = HealthBar(200.0f, 20.0f, sf::Color::Green, sf::Color::Red, healthBarPosition);
 }
+
+/*
+Function: setPosition
+Purpose: Sets the position of the player shape
+*/
+
 void Player::setPosition(float x, float y) {
     shape.setPosition(x, y);
     setX(x);
     setY(y);
 }
+
+/*
+Function: move
+Purpose: Moves the player and makes sure they dont go out of bouunds
+*/
 
 void Player::move(float offsetX, float offsetY) {
     float xMove = offsetX * movementSpeed;
@@ -25,16 +36,20 @@ void Player::move(float offsetX, float offsetY) {
     float newX = currentX + xMove;
     float newY = currentY + yMove;
 
-    // Ensure the new position stays within the bounds of the window
-    if (newX - radius < 0) newX = radius; // Left boundary
-    if (newX + radius > 1280) newX = 1280 - radius; // Right boundary
-    if (newY - radius < 0) newY = radius; // Top boundary
-    if (newY + radius > 720) newY = 720 - radius; // Bottom boundary
+    if (newX - radius < 0) newX = radius; 
+    if (newX + radius > 1280) newX = 1280 - radius; 
+    if (newY - radius < 0) newY = radius;
+    if (newY + radius > 720) newY = 720 - radius; 
 
     shape.setPosition(newX, newY);
 
     setCoordinates(newX, newY);
 }
+
+/*
+Function: shoot
+Purpose: Generates a projectile and shoots it on screen
+*/
 
 void Player::shoot() {
     if (attackTimer.getElapsedTime().asSeconds() >= attackCooldown) {
@@ -45,23 +60,29 @@ void Player::shoot() {
     }
 }
 
+/*
+Function: updateProjectiles
+Purpose: updates all projectiles in the list and checks if its out of bounds
+or if it hit the boss.
+*/
 
 void Player::updateProjectiles(Boss& boss) {
     projectiles.removeIf([&](Projectile& projectile) {
-        projectile.update(); // Move the projectile
+        projectile.update();
 
-        // Check collision with boss
         if (boss.getBounds().intersects(projectile.getBounds())) {
             boss.takeDamage(1); 
             return true;        
         }
 
-        // Remove off-screen projectiles
         return projectile.isOffScreen();
     });
 }
 
-
+/*
+Function: draw
+Purpose: Draws the health bar, player entity and projectiles in the list
+*/
 
 void Player::draw(sf::RenderWindow& window) {
     drawHealthBar(window);
@@ -72,6 +93,7 @@ void Player::draw(sf::RenderWindow& window) {
     });
 }
 
+// getters and setters
 
 int Player::getMovementSpeed(){
     return movementSpeed;

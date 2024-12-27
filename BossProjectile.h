@@ -4,6 +4,11 @@
 #include <SFML/Graphics.hpp>
 #include <cmath>
 
+/*
+Class: BossProjectile
+Purpose: A BossProjectile class that represents the projectiles shot by the boss
+*/
+
 class BossProjectile {
 public:
     BossProjectile(float x = 0.0f, float y = 0.0f, float speedX = 0.0f, float speedY = 0.0f);

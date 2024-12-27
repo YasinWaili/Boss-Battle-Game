@@ -4,6 +4,11 @@
 #include <SFML/Graphics.hpp>
 #include "HealthBar.h"
 
+/*
+Class: Character
+Purpose: A Character class that represents the characters in the game
+*/
+
 class Character
 {
     public:
