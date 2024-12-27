@@ -3,7 +3,7 @@
 Projectile::Projectile() : speed(0.0f) {
     shape.setSize(sf::Vector2f(10.0f, 5.0f));
     shape.setFillColor(sf::Color::Yellow);
-    shape.setPosition(0, 0); // Default position
+    shape.setPosition(0, 0); 
 }
 
 Projectile::Projectile(float x, float y, float speed) : speed(speed) {

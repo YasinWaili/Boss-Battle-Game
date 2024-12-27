@@ -81,3 +81,7 @@ void Player::setCoordinates(float x, float y) {
     setX(x);
     setY(y);
 }
+
+sf::FloatRect Player::getBounds() {
+    return shape.getGlobalBounds();
+}

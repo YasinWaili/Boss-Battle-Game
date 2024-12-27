@@ -22,6 +22,7 @@ public:
     void draw(sf::RenderWindow& window);
     int getMovementSpeed();
     void setCoordinates(float, float);
+    sf::FloatRect getBounds();
 
 private:
     float movementSpeed;
