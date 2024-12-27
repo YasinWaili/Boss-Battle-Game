@@ -18,6 +18,7 @@ class Game
     void run();
 
     private:
+    void displayResults(int, int);
     bool isGameOver;
     Player *player;
     Boss *boss;

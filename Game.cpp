@@ -14,7 +14,7 @@ void Game::run() {
 
     sf::Clock deltaClock;
 
-    while (window.isOpen()) {
+    while (window.isOpen() && isGameOver == false) {
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
@@ -56,8 +56,20 @@ void Game::run() {
         boss->draw(window);
         window.display();
 
-        if (boss->getHealth() == 0) {
-            exit(0);
+        if (boss->getHealth() == 0 || player->getHealth() == 0) {
+            isGameOver = true;
         }
+    }
+    if (isGameOver){
+        displayResults(boss->getHealth(), player->getHealth());
+    }
+}
+
+void Game::displayResults(int b, int p){
+    if (b == 0){
+        std::cout << "Game over! You WIN.";
+    }
+    if (p == 0){
+        std::cout << "Game over! You LOSE.";
     }
 }
