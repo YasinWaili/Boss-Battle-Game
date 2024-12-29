@@ -1,5 +1,7 @@
 Author: Yasin Waili
 
+![Boss-Battle-Game](https://github.com/user-attachments/assets/f736d023-aba9-4944-abd9-c0e7dedfbc07)
+
 About the project:
 The project is a game similation that features a player character and a boss enemy.
 The player character is controlled by the user while the boss is controlled by the
